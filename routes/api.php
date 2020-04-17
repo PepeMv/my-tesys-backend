@@ -41,4 +41,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::put('mesas/{id}', 'MesaController@update');
     Route::delete('mesas/{id}', 'MesaController@destroy');
 
-
+    //pedidos
+    Route::post('pedidos', 'PedidoController@store');

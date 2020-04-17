@@ -24,6 +24,7 @@ class RestauranteController extends Controller
                     'estado' =>  $restaurante->estado,
                     'iva' =>  $restaurante->iva,
                     'id' =>   $restaurante->id,
+                    'costoEnvio' =>   $restaurante->costoEnvio,
                 ],
                 'imagenes' => [
                     'logo'=> asset('storage/'.$restaurante->logo),
@@ -66,6 +67,7 @@ class RestauranteController extends Controller
                 'nombre' => 'required|string',
                 'estado' => 'required',
                 'iva' => 'required',
+                'costoEnvio' => 'required',
                 /* 'idUsuario' => 'required', */
             ]
         );
@@ -90,6 +92,7 @@ class RestauranteController extends Controller
         $restaurante->nombre = $request->nombre;
         $restaurante->estado = $request->estado;
         $restaurante->iva = $request->iva;
+        $restaurante->costoEnvio = str_replace(',','.',$request->costoEnvio);
         //$restaurante->save();
 
         $logo = $request->file('logo');
@@ -132,6 +135,7 @@ class RestauranteController extends Controller
                     'estado' =>  $restaurante->estado,
                     'iva' =>  $restaurante->iva,
                     'id' =>   $restaurante->id,
+                    'costoEnvio' =>   $restaurante->costoEnvio,
                 ],                
                 'imagenes' => [
                     'logo'=> asset('storage/'.$restaurante->logo),

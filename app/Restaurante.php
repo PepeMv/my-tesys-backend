@@ -8,5 +8,7 @@ class Restaurante extends Model
 {
     public $timestamps = false;
     protected $table = 'restaurante';
-    
+    protected $casts = [
+        'costoEnvio' => 'decimal:2',
+    ];
 }

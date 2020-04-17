@@ -69,7 +69,7 @@ class MesaController extends Controller
             );
         }
 
-        $mesa = new Mesa();        
+        $mesa = new Mesa();
         $mesa->nombre = $request->nombre;
         $mesa->qr = $request->qr;
         $mesa->descripcion = $request->descripcion;
