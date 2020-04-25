@@ -6,9 +6,12 @@ use App\Restaurante;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Storage;
+use Mail;
+use App\Notifications\InvoicePaid;
 
 class RestauranteController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +19,9 @@ class RestauranteController extends Controller
      */
     public function index()
     {
+       
         $restaurante = Restaurante::first();
+        //$restaurante->notify(new InvoicePaid("sdfsfds"));
         return response()->json(
             [
                 'data' => [
