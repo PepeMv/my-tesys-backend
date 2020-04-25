@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Pedido;
+use App\User;
 use App\Events\PedidoPreparado;
 use App\Events\NuevoPedido;
+use App\Events\PedidoCancelado;
+use App\Events\PedidoEntregado;
+use App\Notifications\InvoicePaid;
 use DB;
 use App\DetallePedido;
 use Illuminate\Http\Request;
@@ -273,18 +277,22 @@ class PedidoController extends Controller
         if($request->estado == 'preparado'){
             event(new PedidoPreparado($pedido, $detalles));
             //notificar de esta preparado
-        } else if($request->estado == 'entregado'){
+            $user = User::find($pedido->idUsuario);
+            $user->notify(new InvoicePaid($pedido->id));
+
+        } else if($request->estado == 'cancelado'){
             //lanzar evento para eliminar de los states locales de cada admin
-            //notificar de entrega
-
+            event(new PedidoCancelado($pedido, $detalles));
+            //notificar de cancelacion ?
+        } else if($request->estado == 'entregado'){
+            event(new PedidoEntregado($pedido, $detalles));
+            //notificar de la entrega
         }
-
-        
 
         return response()->json(
             [
-                'pedido' => $pedido,
-                'detalles' => $detalles,
+                //'pedido' => $pedido,
+                //'detalles' => $detalles,
                 'HttpResponse' => [
                     'tittle' => 'Correcto',
                     'message' => 'Pedido actualizado!',

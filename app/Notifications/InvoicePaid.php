@@ -6,19 +6,23 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Restaurante;
+use App\Pedido;
+
 
 class InvoicePaid extends Notification
 {
     use Queueable;
 
+    public $id;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($idPedido)
     {
-        //
+        $this->id = $idPedido;
     }
 
     /**
@@ -40,11 +44,20 @@ class InvoicePaid extends Notification
      */
     public function toMail($notifiable)
     {
+        $restaurante = Restaurante::first();
+        $pedido = Pedido::find($this->id);
+        //$detalles = DB::table('detalle_pedido')->where('idPedido','=',$this->id)->get();
+
         return (new MailMessage)
-                    ->from('pepemv1997@gmail.com', 'mesiasjuanjosegmail12345')
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                            ->subject('Pedido Listo')
+                            ->greeting($restaurante->nombre)
+                            ->line('Tu pedido esta listo para ser entregado!')
+                            ->line('N° pedido: '.$pedido->numeroPedido.'  '.'Fecha: '.$pedido->fechahoraPedido)
+                            ->line('Cliente: '.$pedido->nombreCliente.'  '.'CI/RUC: '.$pedido->numeroDocumento)
+                            ->line('Total: '.$pedido->totalPedido.' $')
+                            ->line('**********************************************')
+                            ->action('Revisar','#')
+                            ->line('Gracias por preferirnos!');
     }
 
     /**
