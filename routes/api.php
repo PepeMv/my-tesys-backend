@@ -18,8 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     //Restaurante
     
 });
-
-
     //datos de facturacio
     Route::get('datosFacturacion/{id}', 'DatosFacturacionController@show');
     Route::post('datosFacturacion', 'DatosFacturacionController@store');

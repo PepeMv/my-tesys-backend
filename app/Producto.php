@@ -10,6 +10,9 @@ class Producto extends Model
     protected $table = 'producto';
     protected $casts = [
         'precio' => 'decimal:2',
+        'activo' => 'int',
+        'aplicaiva' => 'int',
+        'idCategoria' => 'int'
     ];
     
 }

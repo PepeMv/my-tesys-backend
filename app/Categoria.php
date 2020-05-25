@@ -8,5 +8,8 @@ class Categoria extends Model
 {
     public $timestamps = false;
     protected $table = 'categoria_producto';
+    protected $casts = [
+        'activo' => 'int',
+    ];
     
 }

@@ -42,6 +42,8 @@ class InvoicePaid extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
+    
+
     public function toMail($notifiable)
     {
         $restaurante = Restaurante::first();

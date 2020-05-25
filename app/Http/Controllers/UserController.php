@@ -209,6 +209,7 @@ class UserController extends Controller
         }
         //return response()->json(compact('token'));
         //return $this->respondWithToken($token);
+        //$user = User::where('email','=',$request->email)->where('password','=',$request->password)->get();
 
         return response()->json(
             [
